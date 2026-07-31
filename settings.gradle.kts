@@ -13,5 +13,5 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "ktor-minstart"
+rootProject.name = "ktor-exposed-auth"
 include("ktor")
