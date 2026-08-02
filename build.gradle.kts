@@ -3,4 +3,5 @@ plugins {
   alias(ktorLibs.plugins.ktor) apply false
   alias(libs.plugins.ktfmt.gradle) apply false
   alias(libs.plugins.kotlinx.serialization) apply false
+  alias(libs.plugins.exposed) apply false
 }

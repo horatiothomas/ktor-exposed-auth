@@ -3,6 +3,7 @@ plugins {
   alias(ktorLibs.plugins.ktor)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.ktfmt.gradle)
+  alias(libs.plugins.exposed)
 }
 
 dependencies {
@@ -22,6 +23,15 @@ dependencies {
   implementation(libs.jbcrypt)
 }
 
-java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
 
 application { mainClass.set("io.ktor.server.netty.EngineMain") }
+
+exposed {
+  migrations {
+    tablesPackage.set("org.example.data.tables")
+    databaseUrl.set(providers.environmentVariable("DB_URL"))
+    databaseUser.set(providers.environmentVariable("DB_USERNAME"))
+    databasePassword.set(providers.environmentVariable("DB_PASSWORD"))
+  }
+}

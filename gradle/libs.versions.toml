@@ -19,3 +19,4 @@ jbcrypt = { group = "org.mindrot", name = "jbcrypt", version.ref = "jbrcrupt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktfmt-gradle = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt-gradle" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+exposed = { id = "org.jetbrains.exposed.plugin", version.ref = "exposed" }

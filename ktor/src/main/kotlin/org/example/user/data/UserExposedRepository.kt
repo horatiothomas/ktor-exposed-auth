@@ -1,6 +1,7 @@
 package org.example.user.data
 
 import org.example.data.ExposedRepository
+import org.example.data.tables.UserTable
 import org.example.user.NewUser
 import org.example.user.User
 import org.jetbrains.exposed.v1.core.ResultRow
