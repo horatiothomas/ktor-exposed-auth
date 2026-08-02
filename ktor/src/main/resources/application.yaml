@@ -8,6 +8,7 @@ ktor:
       # plugins
       - org.example.plugins.SessionsKt.sessions
       - org.example.plugins.AuthenticationKt.authentication
+      - org.example.plugins.RateLimitKt.rateLimit
       # routing
       - org.example.RoutingKt.routing
   deployment:

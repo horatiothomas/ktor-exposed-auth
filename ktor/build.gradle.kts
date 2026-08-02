@@ -13,6 +13,7 @@ dependencies {
   implementation(ktorLibs.server.auth)
   implementation(ktorLibs.server.sessions)
   implementation(ktorLibs.server.htmlBuilder)
+  implementation(ktorLibs.server.rateLimit)
   implementation(libs.logback.classic)
   implementation(libs.exposed.core)
   implementation(libs.exposed.dao)
