@@ -21,7 +21,7 @@ export DB_URL=your_database_url
 export DB_USERNAME=your_database_username
 export DB_PASSWORD=your_database_password
 ```
-Connect to your database and run the migration in resources/migrations. You can even do so in Intellij. 
+Connect to your database and run the migrations in resources/migrations. You can even do so in Intellij. 
 ### Running the local server
 
 #### Run both of the following commands in separate terminals for auto reload support.
