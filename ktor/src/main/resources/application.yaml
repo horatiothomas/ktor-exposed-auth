@@ -4,3 +4,8 @@ ktor:
       - org.example.RoutingKt.routing
   deployment:
     port: 8080
+hs_secret: $HS_SECRET
+database:
+  url: $DB_URL
+  username: $DB_USERNAME
+  password: $DB_PASSWORD
