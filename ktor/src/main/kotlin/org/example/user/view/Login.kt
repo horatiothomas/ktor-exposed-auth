@@ -27,11 +27,19 @@ suspend fun RoutingContext.loginView() {
             textInput {
               name = "username"
               placeholder = "username"
+              required = true
             }
           }
           label {
             +"Password"
-            passwordInput { name = "password" }
+            passwordInput {
+              name = "password"
+              required = true
+              minLength = "8"
+              pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+              attributes["title"] =
+                  "Password must be 8 characters long contain at least one uppercase and lowercase letter and number"
+            }
           }
           submitInput { value = "Login" }
         }
