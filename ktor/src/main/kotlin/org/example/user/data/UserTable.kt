@@ -1,4 +1,4 @@
-package org.example.user
+package org.example.user.data
 
 import org.jetbrains.exposed.v1.core.dao.id.IntIdTable
 

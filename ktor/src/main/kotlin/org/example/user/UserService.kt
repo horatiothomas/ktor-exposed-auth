@@ -1,6 +1,7 @@
 package org.example.user
 
 import io.ktor.server.auth.UserPasswordCredential
+import org.example.user.data.UserRepository
 
 class UserService(private val userRepository: UserRepository) {
 

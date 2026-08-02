@@ -1,4 +1,7 @@
-package org.example.user
+package org.example.user.data
+
+import org.example.user.NewUser
+import org.example.user.User
 
 interface UserRepository {
 

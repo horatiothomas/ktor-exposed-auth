@@ -1,6 +1,8 @@
-package org.example.user
+package org.example.user.data
 
 import org.example.data.ExposedRepository
+import org.example.user.NewUser
+import org.example.user.User
 import org.jetbrains.exposed.v1.core.ResultRow
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.jdbc.Database
@@ -24,8 +26,8 @@ class UserExposedRepository(database: Database) : ExposedRepository(database), U
 }
 
 private fun ResultRow.toUser() =
-    User(
-        id = this[UserTable.id].value,
-        username = this[UserTable.username],
-        password = this[UserTable.password],
-    )
+  User(
+    id = this[UserTable.id].value,
+    username = this[UserTable.username],
+    password = this[UserTable.password],
+  )
