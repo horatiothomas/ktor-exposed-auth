@@ -1,4 +1,4 @@
-package org.example
+package org.example.plugins
 
 import io.ktor.server.application.Application
 import io.ktor.server.application.install

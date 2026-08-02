@@ -8,7 +8,7 @@ import org.jetbrains.exposed.v1.jdbc.Database
 
 @Serializable data class DatabaseConfig(val url: String, val username: String, val password: String)
 
-fun Application.database() {
+fun Application.databaseModule() {
   val databaseConfig: DatabaseConfig = property("database")
   dependencies {
     provide<Database> {

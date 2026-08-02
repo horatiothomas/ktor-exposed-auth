@@ -1,6 +1,14 @@
 ktor:
   application:
     modules:
+      # modules
+      - org.example.data.DatabaseModuleKt.databaseModule
+      - org.example.security.SecurityModuleKt.securityModule
+      - org.example.user.UserModuleKt.userModule
+      # plugins
+      - org.example.plugins.SessionsKt.sessions
+      - org.example.plugins.AuthenticationKt.authentication
+      # routing
       - org.example.RoutingKt.routing
   deployment:
     port: 8080
