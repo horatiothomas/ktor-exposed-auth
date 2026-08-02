@@ -19,10 +19,12 @@ fun Application.authentication() {
       userParamName = "username"
       passwordParamName = "password"
       validate { credentials ->
+        if (!userService.isPasswordSecure(credentials.password)) {
+          return@validate null
+        }
         val user =
             userService.findUserByUsername(credentials.name) ?: userService.createUser(credentials)
         if (
-            // TODO: add ip rate limiting
             userService.isPasswordValid(
                 password = credentials.password,
                 hashedPassword = user.password,
