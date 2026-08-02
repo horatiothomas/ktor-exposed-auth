@@ -19,10 +19,15 @@ fun Application.authentication() {
       userParamName = "username"
       passwordParamName = "password"
       validate { credentials ->
-        // add bcrypt
         val user =
             userService.findUserByUsername(credentials.name) ?: userService.createUser(credentials)
-        if (user.password == credentials.password) {
+        if (
+            // TODO: add ip rate limiting
+            userService.isPasswordValid(
+                password = credentials.password,
+                hashedPassword = user.password,
+            )
+        ) {
           UserIdPrincipal(user.id)
         } else {
           null

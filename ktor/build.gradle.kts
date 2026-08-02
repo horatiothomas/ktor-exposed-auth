@@ -17,6 +17,7 @@ dependencies {
   implementation(libs.exposed.core)
   implementation(libs.exposed.dao)
   implementation(libs.exposed.jdbc)
+  implementation(libs.jbcrypt)
 }
 
 java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }

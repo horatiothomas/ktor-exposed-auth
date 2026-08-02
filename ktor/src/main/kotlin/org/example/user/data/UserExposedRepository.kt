@@ -26,8 +26,8 @@ class UserExposedRepository(database: Database) : ExposedRepository(database), U
 }
 
 private fun ResultRow.toUser() =
-  User(
-    id = this[UserTable.id].value,
-    username = this[UserTable.username],
-    password = this[UserTable.password],
-  )
+    User(
+        id = this[UserTable.id].value,
+        username = this[UserTable.username],
+        password = this[UserTable.password],
+    )
