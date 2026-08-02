@@ -15,6 +15,7 @@ dependencies {
   implementation(ktorLibs.server.htmlBuilder)
   implementation(ktorLibs.server.rateLimit)
   implementation(libs.logback.classic)
+  implementation(libs.postgresql)
   implementation(libs.exposed.core)
   implementation(libs.exposed.dao)
   implementation(libs.exposed.jdbc)

@@ -15,14 +15,14 @@ Add it to your environment
 export HS_SECRET=your_generated_secret
 ```
 ### Setting up a Database
-Setup a database either local or remote and then add the connection info to your environment
-Exposed will infer the database type from the connection url
-#### IMPORTANT: This project uses features supported only by the following database types: PostgreSQL, SQLite, and MariaDB
+Create a postgres database and add the configuration information to your environment like so:
 ```bash
 export DB_URL=your_database_url
 export DB_USERNAME=your_database_username
 export DB_PASSWORD=your_database_password
 ```
+
+### Running the local server
 
 #### Run both of the following commands in separate terminals for auto reload support.
 To observe file changed and rebuild the project for instant updates
