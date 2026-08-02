@@ -1,10 +1,12 @@
 package org.example.security
 
-interface PasswordService {
+abstract class PasswordService {
 
-  fun isPasswordSecure(password: String): Boolean
+  fun isPasswordSecure(password: String): Boolean = with(password) {
+    length >= 8 && any { it.isUpperCase() } && any { it.isLowerCase() } && any { it.isDigit() }
+  }
 
-  suspend fun hashPassword(password: String): String
+  abstract suspend fun hashPassword(password: String): String
 
-  suspend fun verifyPassword(password: String, hashedPassword: String): Boolean
+  abstract suspend fun verifyPassword(password: String, hashedPassword: String): Boolean
 }
