@@ -24,6 +24,11 @@ class LayoutTemplate : Template<HTML> {
         href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
         type = "text/css"
       }
+      styleLink {
+        rel = "stylesheet"
+        href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+        type = "text/css"
+      }
       title { insert(pageTitle) }
     }
     body { main(classes = "container") { insert(content) } }

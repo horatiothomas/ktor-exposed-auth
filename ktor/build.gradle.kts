@@ -15,6 +15,7 @@ dependencies {
   implementation(ktorLibs.server.sessions)
   implementation(ktorLibs.server.htmlBuilder)
   implementation(ktorLibs.server.rateLimit)
+  implementation(ktorLibs.server.requestValidation)
   implementation(libs.logback.classic)
   implementation(libs.postgresql)
   implementation(libs.exposed.core)

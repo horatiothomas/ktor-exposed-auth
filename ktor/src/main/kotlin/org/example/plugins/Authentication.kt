@@ -8,6 +8,7 @@ import io.ktor.server.auth.session
 import io.ktor.server.plugins.di.dependencies
 import io.ktor.server.response.respondRedirect
 import org.example.user.UserService
+import org.example.user.view.LoginForm
 
 data class UserIdPrincipal(val id: Int)
 
@@ -16,23 +17,20 @@ fun Application.authentication() {
 
   install(Authentication) {
     form("auth-form") {
-      userParamName = "username"
-      passwordParamName = "password"
+      userParamName = LoginForm.USERNAME
+      passwordParamName = LoginForm.PASSWORD
       validate { credentials ->
-        if (!userService.isPasswordSecure(credentials.password)) {
-          return@validate null
-        }
-        val user =
-            userService.findUserByUsername(credentials.name) ?: userService.createUser(credentials)
-        if (
+        userService.findUserByUsername(credentials.name)?.let { user ->
+          if (
             userService.isPasswordValid(
-                password = credentials.password,
-                hashedPassword = user.password,
+              password = credentials.password,
+              hashedPassword = user.password,
             )
-        ) {
-          UserIdPrincipal(user.id)
-        } else {
-          null
+          ) {
+            UserIdPrincipal(user.id)
+          } else {
+            null
+          }
         }
       }
     }

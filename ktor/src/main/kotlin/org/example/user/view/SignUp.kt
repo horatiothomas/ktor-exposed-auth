@@ -16,17 +16,33 @@ import kotlinx.html.textInput
 import org.example.LayoutTemplate
 import org.example.Path
 
-object LoginForm {
+object SignUpForm {
   const val USERNAME = "username"
   const val PASSWORD = "password"
 }
 
-suspend fun loginView(call: RoutingCall) {
+enum class SignUpError {
+  USERNAME_TAKEN,
+}
+
+const val INSECURE_PASSWORD_MESSAGE =
+    "Password must be 8 characters long contain at least one uppercase and lowercase letter and number"
+const val USERNAME_TAKEN_MESSAGE = "Username is already taken"
+
+suspend fun signUpView(call: RoutingCall, error: SignUpError? = null) {
   call.respondHtmlTemplate(LayoutTemplate()) {
-    pageTitle { +"Login" }
+    pageTitle { +"Sign Up" }
     content {
+      if (error != null) {
+        p(classes = "pico-color-pink-500") {
+          +"Error: "
+          when (error) {
+            SignUpError.USERNAME_TAKEN -> +USERNAME_TAKEN_MESSAGE
+          }
+        }
+      }
       form(
-          action = "login",
+          action = "sign-up",
           encType = FormEncType.applicationXWwwFormUrlEncoded,
           method = FormMethod.post,
       ) {
@@ -34,7 +50,7 @@ suspend fun loginView(call: RoutingCall) {
           label {
             +"Username"
             textInput {
-              name = LoginForm.USERNAME
+              name = SignUpForm.USERNAME
               placeholder = "username"
               required = true
             }
@@ -42,16 +58,19 @@ suspend fun loginView(call: RoutingCall) {
           label {
             +"Password"
             passwordInput {
-              name = LoginForm.PASSWORD
+              name = SignUpForm.PASSWORD
               required = true
+              minLength = "8"
+              pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+              attributes["title"] = INSECURE_PASSWORD_MESSAGE
             }
           }
-          submitInput { value = "Login" }
+          submitInput { value = "Sign Up" }
         }
         footer {
           p {
-            +"Don't have an account? "
-            a(href = Path.SIGN_UP) { +"Sign up" }
+            +"Already have an account? "
+            a(href = Path.LOGIN) { +"Login" }
           }
         }
       }

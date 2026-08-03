@@ -17,6 +17,9 @@ class UserService(
   suspend fun findUserByUsername(username: String): User? =
       userRepository.findUserByUsername(username)
 
+  suspend fun isUsernameAvailable(username: String): Boolean =
+      userRepository.findUserByUsername(username) == null
+
   fun isPasswordSecure(password: String): Boolean = passwordService.isPasswordSecure(password)
 
   suspend fun isPasswordValid(password: String, hashedPassword: String): Boolean =
