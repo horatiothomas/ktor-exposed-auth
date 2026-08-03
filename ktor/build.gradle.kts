@@ -7,6 +7,7 @@ plugins {
 }
 
 dependencies {
+  implementation(libs.kotlinx.serialization.json)
   implementation(ktorLibs.server.di)
   implementation(ktorLibs.server.core)
   implementation(ktorLibs.server.netty)
@@ -15,6 +16,7 @@ dependencies {
   implementation(ktorLibs.server.sessions)
   implementation(ktorLibs.server.htmlBuilder)
   implementation(ktorLibs.server.rateLimit)
+  implementation(ktorLibs.server.resources)
   implementation(ktorLibs.server.requestValidation)
   implementation(libs.logback.classic)
   implementation(libs.postgresql)

@@ -1,6 +1,7 @@
 package org.example.user.view
 
 import io.ktor.server.html.respondHtmlTemplate
+import io.ktor.server.resources.href
 import io.ktor.server.routing.RoutingCall
 import kotlinx.html.FormEncType
 import kotlinx.html.FormMethod
@@ -14,7 +15,8 @@ import kotlinx.html.passwordInput
 import kotlinx.html.submitInput
 import kotlinx.html.textInput
 import org.example.LayoutTemplate
-import org.example.Path
+import org.example.Login
+import org.example.SignUp
 
 object SignUpForm {
   const val USERNAME = "username"
@@ -42,7 +44,7 @@ suspend fun signUpView(call: RoutingCall, error: SignUpError? = null) {
         }
       }
       form(
-          action = "sign-up",
+          action = call.application.href(SignUp()),
           encType = FormEncType.applicationXWwwFormUrlEncoded,
           method = FormMethod.post,
       ) {
@@ -70,7 +72,7 @@ suspend fun signUpView(call: RoutingCall, error: SignUpError? = null) {
         footer {
           p {
             +"Already have an account? "
-            a(href = Path.LOGIN) { +"Login" }
+            a(href = call.application.href(Login())) { +"Login" }
           }
         }
       }

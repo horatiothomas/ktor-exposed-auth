@@ -6,6 +6,7 @@ ktor:
       - org.example.security.SecurityModuleKt.securityModule
       - org.example.user.UserModuleKt.userModule
       # plugins
+      - org.example.plugins.ResourcesKt.resources
       - org.example.plugins.SessionsKt.sessions
       - org.example.plugins.AuthenticationKt.authentication
       - org.example.plugins.RateLimitKt.rateLimit

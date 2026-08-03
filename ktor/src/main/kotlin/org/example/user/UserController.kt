@@ -4,12 +4,14 @@ import io.ktor.server.auth.UserPasswordCredential
 import io.ktor.server.auth.principal
 import io.ktor.server.plugins.requestvalidation.RequestValidationException
 import io.ktor.server.request.receiveParameters
+import io.ktor.server.resources.href
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.routing.RoutingCall
 import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
-import org.example.Path
+import org.example.Index
+import org.example.SignUp
 import org.example.plugins.UserIdPrincipal
 import org.example.plugins.UserSession
 import org.example.user.view.SignUpError
@@ -18,41 +20,42 @@ import org.example.user.view.indexView
 import org.example.user.view.loginView
 import org.example.user.view.signUpView
 
-object QueryParams {
-  object Signup {
-    object Error {
-      const val KEY = "error"
-
-      object Value {
-        const val USERNAME_TAKEN = "username-taken"
-      }
-    }
-  }
+object SignUpErrorParameters {
+  const val USERNAME_TAKEN = "username-taken"
 }
 
 class UserController(val userService: UserService) {
 
-  suspend fun showSignUp(call: RoutingCall) {
-    when (call.request.queryParameters[QueryParams.Signup.Error.KEY]) {
-      QueryParams.Signup.Error.Value.USERNAME_TAKEN -> signUpView(call, SignUpError.USERNAME_TAKEN)
+  suspend fun showSignUp(call: RoutingCall, error: String?) {
+    when (error) {
+      SignUpErrorParameters.USERNAME_TAKEN -> signUpView(call, SignUpError.USERNAME_TAKEN)
       else -> signUpView(call)
     }
   }
 
   suspend fun signUp(call: RoutingCall) {
-    val formParameters = call.receiveParameters()
-    val username = formParameters[SignUpForm.USERNAME].toString()
-    val password = formParameters[SignUpForm.PASSWORD].toString()
-    if (!userService.isPasswordSecure(password)) {
-      throw RequestValidationException(formParameters, listOf("Password is not secure"))
-    }
-    if (!userService.isUsernameAvailable(username)) {
-      call.respondRedirect(
-          "${Path.SIGN_UP}?${QueryParams.Signup.Error.KEY}=${QueryParams.Signup.Error.Value.USERNAME_TAKEN}"
-      )
-    } else {
-      userService.createUser(UserPasswordCredential(username, password))
-      call.respondRedirect(Path.INDEX)
+    with(call) {
+      val formParameters = receiveParameters()
+      val username = formParameters[SignUpForm.USERNAME].toString()
+      val password = formParameters[SignUpForm.PASSWORD].toString()
+      if (!userService.isPasswordSecure(password)) {
+        throw RequestValidationException(formParameters, listOf("Password is not secure"))
+      }
+      if (!userService.isUsernameAvailable(username)) {
+        respondRedirect(application.href(SignUp(SignUpErrorParameters.USERNAME_TAKEN)))
+        return
+      }
+      val user =
+          runCatching { userService.createUser(UserPasswordCredential(username, password)) }
+              .getOrElse { exception ->
+                if (exception is UsernameTakenException) {
+                  respondRedirect(application.href(SignUp(SignUpErrorParameters.USERNAME_TAKEN)))
+                  return
+                }
+                throw exception
+              }
+      sessions.set(UserSession(userId = user.id))
+      respondRedirect(application.href(Index()))
     }
   }
 
@@ -61,9 +64,11 @@ class UserController(val userService: UserService) {
   }
 
   suspend fun initUserSession(call: RoutingCall) {
-    val userId = call.principal<UserIdPrincipal>()?.id
-    call.sessions.set(UserSession(userId = userId!!))
-    call.respondRedirect(Path.INDEX)
+    with(call) {
+      val userId = principal<UserIdPrincipal>()?.id
+      sessions.set(UserSession(userId = userId!!))
+      respondRedirect(application.href(Index()))
+    }
   }
 
   suspend fun index(call: RoutingCall) {
@@ -72,7 +77,9 @@ class UserController(val userService: UserService) {
   }
 
   suspend fun logout(call: RoutingCall) {
-    call.sessions.clear<UserSession>()
-    call.respondRedirect(Path.INDEX)
+    with(call) {
+      sessions.clear<UserSession>()
+      respondRedirect(application.href(Index()))
+    }
   }
 }
