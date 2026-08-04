@@ -18,6 +18,7 @@ dependencies {
   implementation(ktorLibs.server.rateLimit)
   implementation(ktorLibs.server.resources)
   implementation(ktorLibs.server.requestValidation)
+  implementation(ktorLibs.server.csrf)
   implementation(libs.logback.classic)
   implementation(libs.postgresql)
   implementation(libs.exposed.core)

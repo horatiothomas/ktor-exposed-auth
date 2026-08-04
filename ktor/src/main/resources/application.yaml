@@ -10,6 +10,7 @@ ktor:
       - org.example.plugins.SessionsKt.sessions
       - org.example.plugins.AuthenticationKt.authentication
       - org.example.plugins.RateLimitKt.rateLimit
+      - org.example.plugins.CSRFKt.csrf
       # routing
       - org.example.RoutingKt.routing
   deployment:
