@@ -36,8 +36,12 @@ class UserController(val userService: UserService) {
   suspend fun signUp(call: RoutingCall) {
     with(call) {
       val formParameters = receiveParameters()
-      val username = formParameters[SignUpForm.USERNAME].toString()
-      val password = formParameters[SignUpForm.PASSWORD].toString()
+      val username =
+          formParameters[SignUpForm.USERNAME]
+              ?: throw RequestValidationException(formParameters, listOf("Username is required"))
+      val password =
+          formParameters[SignUpForm.PASSWORD]
+              ?: throw RequestValidationException(formParameters, listOf("Password is required"))
       if (!userService.isPasswordSecure(password)) {
         throw RequestValidationException(formParameters, listOf("Password is not secure"))
       }
