@@ -17,6 +17,7 @@ fun Application.sessions() {
   install(Sessions) {
     cookie<UserSession>("user_session", SessionStorageMemory()) {
       cookie.path = "/"
+      cookie.secure = true
       transform(SessionTransportTransformerMessageAuthentication(secretSignKey))
     }
   }
