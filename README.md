@@ -7,11 +7,11 @@ This is an example project demonstrating how to manage ktor authentication with 
 ### Generate a hex secret for HMAC SHA-256
 
 Run the following command to generate a hex secret for HMAC SHA-256
-```
+```bash
 openssl rand -hex 14
 ```
 Add it to your environment
-```
+```bash
 export HS_SECRET=your_generated_secret
 ```
 ### Setting up a Database
@@ -21,22 +21,22 @@ export DB_URL=your_database_url
 export DB_USERNAME=your_database_username
 export DB_PASSWORD=your_database_password
 ```
-Connect to your database and run the migrations in resources/migrations. You can even do so in Intellij. 
+Connect to your database and run the migrations in ktor/src/main/resources/db/migration. You can even do so in Intellij. 
 ### Running the local server
 
 #### Run both of the following commands in separate terminals for auto reload support.
 To observe file changed and rebuild the project for instant updates
-```
+```bash
 ./gradlew -t :ktor:build 
 ```
 To start the ktor server
-```
+```bash
 ./gradlew -t :ktor:run -Dio.ktor.development=true
 ```
 
 ### Formatting
 Run the following to format the project.
-```
+```bash
 ./gradlew ktfmtFormat 
 ```
 
