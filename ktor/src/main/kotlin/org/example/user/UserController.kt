@@ -10,6 +10,7 @@ import io.ktor.server.routing.RoutingCall
 import io.ktor.server.sessions.clear
 import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
+import io.ktor.server.util.getOrFail
 import org.example.Index
 import org.example.SignUp
 import org.example.plugins.UserIdPrincipal
@@ -36,12 +37,8 @@ class UserController(val userService: UserService) {
   suspend fun signUp(call: RoutingCall) {
     with(call) {
       val formParameters = receiveParameters()
-      val username =
-          formParameters[SignUpForm.USERNAME]
-              ?: throw RequestValidationException(formParameters, listOf("Username is required"))
-      val password =
-          formParameters[SignUpForm.PASSWORD]
-              ?: throw RequestValidationException(formParameters, listOf("Password is required"))
+      val username = formParameters.getOrFail(SignUpForm.USERNAME)
+      val password = formParameters.getOrFail(SignUpForm.PASSWORD)
       if (!userService.isPasswordSecure(password)) {
         throw RequestValidationException(formParameters, listOf("Password is not secure"))
       }
