@@ -1,11 +1,10 @@
 package org.example.security
 
+const val PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d\\W_]{8,}$"
+
 abstract class PasswordService {
 
-  fun isPasswordSecure(password: String): Boolean =
-      with(password) {
-        length >= 8 && any { it.isUpperCase() } && any { it.isLowerCase() } && any { it.isDigit() }
-      }
+  fun isPasswordSecure(password: String): Boolean = password.matches(PASSWORD_REGEX.toRegex())
 
   abstract suspend fun hashPassword(password: String): String
 

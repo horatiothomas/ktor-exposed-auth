@@ -17,6 +17,7 @@ import kotlinx.html.textInput
 import org.example.LayoutTemplate
 import org.example.Login
 import org.example.SignUp
+import org.example.security.PASSWORD_REGEX
 
 object SignUpForm {
   const val USERNAME = "username"
@@ -63,7 +64,7 @@ suspend fun signUpView(call: RoutingCall, error: SignUpError? = null) {
               name = SignUpForm.PASSWORD
               required = true
               minLength = "8"
-              pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+              pattern = PASSWORD_REGEX
               attributes["title"] = INSECURE_PASSWORD_MESSAGE
             }
           }
