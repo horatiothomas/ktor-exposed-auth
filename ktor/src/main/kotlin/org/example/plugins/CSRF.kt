@@ -5,7 +5,5 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.csrf.CSRF
 
 fun Application.csrf() {
-  install(CSRF) {
-    originMatchesHost()
-  }
+  install(CSRF) { originMatchesHost() }
 }
