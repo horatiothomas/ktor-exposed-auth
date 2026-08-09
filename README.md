@@ -39,7 +39,3 @@ Run the following to format the project.
 ```bash
 ./gradlew ktfmtFormat 
 ```
-
-#### Auto Reload Support Notes
-- Uses ktor version 3.4.3 so autoreload can be used. Will upgrade to 3.5.2 when that bug is fixed.
-- Uses gradle over kotlin toolchain because autoreload doesn't work in kotlin toolchain and gradle is still the industry standard
