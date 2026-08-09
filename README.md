@@ -22,6 +22,15 @@ export DB_USERNAME=your_database_username
 export DB_PASSWORD=your_database_password
 ```
 Connect to your database and run the migrations in ktor/src/main/resources/db/migration. You can even do so in Intellij. 
+
+### Configuring Cookies
+
+Set the secure_cookies environment variable to true if you want to use secure cookies. This is recommended for production environments.
+In local development, you would want to set it to false.
+```bash
+export SECURE_COOKIES=true
+```
+
 ### Running the local server
 
 #### Run both of the following commands in separate terminals for auto reload support.
