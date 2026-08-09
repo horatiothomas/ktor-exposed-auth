@@ -61,7 +61,7 @@ class UserController(val userService: UserService) {
 
   suspend fun showLogin(call: RoutingCall, error: String?) {
     when (error) {
-      LoginErrorParameters.INVALID_CREDENTIALS -> LoginError.INVALID_CREDENTIALS
+      LoginErrorParameters.INVALID_CREDENTIALS -> loginView(call, LoginError.INVALID_CREDENTIALS)
       else -> loginView(call)
     }
   }
