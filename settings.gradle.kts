@@ -9,6 +9,7 @@ dependencyResolutionManagement {
     mavenCentral()
   }
   versionCatalogs {
+    create("exposedLibs") { from("org.jetbrains.exposed:exposed-version-catalog:1.4.0") }
     create("ktorLibs") { from("io.ktor:ktor-version-catalog:3.5.2") }
   }
 }

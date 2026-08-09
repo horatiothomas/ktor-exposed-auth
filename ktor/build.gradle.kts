@@ -21,9 +21,9 @@ dependencies {
   implementation(ktorLibs.server.csrf)
   implementation(libs.logback.classic)
   implementation(libs.postgresql)
-  implementation(libs.exposed.core)
-  implementation(libs.exposed.dao)
-  implementation(libs.exposed.jdbc)
+  implementation(exposedLibs.core)
+  implementation(exposedLibs.dao)
+  implementation(exposedLibs.jdbc)
   implementation(libs.jbcrypt)
 }
 
