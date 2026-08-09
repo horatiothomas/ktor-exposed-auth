@@ -12,18 +12,17 @@ import io.ktor.server.sessions.sessions
 import io.ktor.server.sessions.set
 import io.ktor.server.util.getOrFail
 import org.example.Index
+import org.example.LoginErrorParameters
 import org.example.SignUp
+import org.example.SignUpErrorParameters
 import org.example.plugins.UserIdPrincipal
 import org.example.plugins.UserSession
+import org.example.user.view.LoginError
 import org.example.user.view.SignUpError
 import org.example.user.view.SignUpForm
 import org.example.user.view.indexView
 import org.example.user.view.loginView
 import org.example.user.view.signUpView
-
-object SignUpErrorParameters {
-  const val USERNAME_TAKEN = "username-taken"
-}
 
 class UserController(val userService: UserService) {
 
@@ -60,8 +59,11 @@ class UserController(val userService: UserService) {
     }
   }
 
-  suspend fun showLogin(call: RoutingCall) {
-    loginView(call)
+  suspend fun showLogin(call: RoutingCall, error: String?) {
+    when(error) {
+      LoginErrorParameters.INVALID_CREDENTIALS -> LoginError.INVALID_CREDENTIALS
+      else -> loginView(call)
+    }
   }
 
   suspend fun initUserSession(call: RoutingCall) {

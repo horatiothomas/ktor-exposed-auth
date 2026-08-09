@@ -18,32 +18,25 @@ import org.example.LayoutTemplate
 import org.example.Login
 import org.example.SignUp
 import org.example.security.PASSWORD_REGEX
+import org.example.user.view.components.errorMessage
 
 object SignUpForm {
   const val USERNAME = "username"
   const val PASSWORD = "password"
 }
 
-enum class SignUpError {
-  USERNAME_TAKEN,
+enum class SignUpError(val message: String) {
+  USERNAME_TAKEN("Username is already taken"),
 }
 
 const val INSECURE_PASSWORD_MESSAGE =
     "Password must be 8 characters long contain at least one uppercase and lowercase letter and number"
-const val USERNAME_TAKEN_MESSAGE = "Username is already taken"
 
 suspend fun signUpView(call: RoutingCall, error: SignUpError? = null) {
   call.respondHtmlTemplate(LayoutTemplate()) {
     pageTitle { +"Sign Up" }
     content {
-      if (error != null) {
-        p(classes = "pico-color-pink-500") {
-          +"Error: "
-          when (error) {
-            SignUpError.USERNAME_TAKEN -> +USERNAME_TAKEN_MESSAGE
-          }
-        }
-      }
+      error?.message?.let(::errorMessage)
       form(
           action = call.application.href(SignUp()),
           encType = FormEncType.applicationXWwwFormUrlEncoded,

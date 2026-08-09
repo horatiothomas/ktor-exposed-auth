@@ -9,6 +9,7 @@ import io.ktor.server.plugins.di.dependencies
 import io.ktor.server.resources.href
 import io.ktor.server.response.respondRedirect
 import org.example.Login
+import org.example.LoginErrorParameters
 import org.example.user.UserService
 import org.example.user.view.LoginForm
 
@@ -33,6 +34,11 @@ fun Application.authentication() {
           } else {
             null
           }
+        }
+      }
+      challenge {
+        with(call) {
+          respondRedirect(application.href(Login(LoginErrorParameters.INVALID_CREDENTIALS)))
         }
       }
     }

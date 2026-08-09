@@ -17,16 +17,22 @@ import kotlinx.html.textInput
 import org.example.LayoutTemplate
 import org.example.Login
 import org.example.SignUp
+import org.example.user.view.components.errorMessage
 
 object LoginForm {
   const val USERNAME = "username"
   const val PASSWORD = "password"
 }
 
-suspend fun loginView(call: RoutingCall) {
+enum class LoginError(val message: String) {
+  INVALID_CREDENTIALS("Invalid credentials")
+}
+
+suspend fun loginView(call: RoutingCall, error: LoginError? = null) {
   call.respondHtmlTemplate(LayoutTemplate()) {
     pageTitle { +"Login" }
     content {
+      error?.message?.let(::errorMessage)
       form(
           action = call.application.href(Login()),
           encType = FormEncType.applicationXWwwFormUrlEncoded,

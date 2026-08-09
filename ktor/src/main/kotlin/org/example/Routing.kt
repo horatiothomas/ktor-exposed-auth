@@ -12,11 +12,19 @@ import org.example.user.UserController
 
 @Resource("/") class Index
 
-@Resource("login") class Login
+@Resource("login") class Login(val error: String? = null)
 
 @Resource("sign-up") class SignUp(val error: String? = null)
 
 @Resource("logout") class Logout
+
+object LoginErrorParameters {
+  const val INVALID_CREDENTIALS = "invalid-credentials"
+}
+
+object SignUpErrorParameters {
+  const val USERNAME_TAKEN = "username-taken"
+}
 
 fun Application.routing() {
   val userController: UserController by dependencies
@@ -25,7 +33,7 @@ fun Application.routing() {
     rateLimit {
       authenticate("auth-session") { get<Index> { userController.index(call) } }
       authenticate("auth-form") { post<Login> { userController.initUserSession(call) } }
-      get<Login> { userController.showLogin(call) }
+      get<Login> { login -> userController.showLogin(call, login.error) }
       get<SignUp> { signup -> userController.showSignUp(call, signup.error) }
       post<SignUp> { userController.signUp(call) }
       get<Logout> { userController.logout(call) }
