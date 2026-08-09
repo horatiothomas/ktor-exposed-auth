@@ -16,6 +16,7 @@ ktor:
   deployment:
     port: 8080
 hs_secret: $HS_SECRET
+secure_cookies: $SECURE_COOKIES
 database:
   url: $DB_URL
   username: $DB_USERNAME

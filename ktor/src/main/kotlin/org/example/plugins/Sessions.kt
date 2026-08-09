@@ -13,11 +13,12 @@ import kotlinx.serialization.Serializable
 
 fun Application.sessions() {
   val hsSecret: String = property("hs_secret")
+  val secureCookies: Boolean = property("secure_cookies")
   val secretSignKey = hsSecret.hexToByteArray()
   install(Sessions) {
     cookie<UserSession>("user_session", SessionStorageMemory()) {
       cookie.path = "/"
-      cookie.secure = true
+      cookie.secure = secureCookies
       transform(SessionTransportTransformerMessageAuthentication(secretSignKey))
     }
   }
