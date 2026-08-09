@@ -10,9 +10,6 @@ jbrcrypt = "0.4"
 [libraries]
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"  }
 postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgres" }
-exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
-exposed-dao = { group = "org.jetbrains.exposed", name = "exposed-dao", version.ref = "exposed" }
-exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 jbcrypt = { group = "org.mindrot", name = "jbcrypt", version.ref = "jbrcrypt" }
 
