@@ -9,9 +9,10 @@ dependencyResolutionManagement {
     mavenCentral()
   }
   versionCatalogs {
-    create("ktorLibs") { from("io.ktor:ktor-version-catalog:3.4.3") }
+    create("exposedLibs") { from("org.jetbrains.exposed:exposed-version-catalog:1.4.0") }
+    create("ktorLibs") { from("io.ktor:ktor-version-catalog:3.5.2") }
   }
 }
 
-rootProject.name = "ktor-minstart"
+rootProject.name = "ktor-exposed-auth"
 include("ktor")

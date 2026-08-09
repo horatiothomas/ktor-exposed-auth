@@ -9,3 +9,5 @@ build
 
 # Ignore Intellij configurations
 .idea
+
+localenv

@@ -1,6 +1,24 @@
 ktor:
   application:
     modules:
+      # modules
+      - org.example.data.DatabaseModuleKt.databaseModule
+      - org.example.security.SecurityModuleKt.securityModule
+      - org.example.user.UserModuleKt.userModule
+      # plugins
+      - org.example.plugins.ResourcesKt.resources
+      - org.example.plugins.SessionsKt.sessions
+      - org.example.plugins.AuthenticationKt.authentication
+      - org.example.plugins.RateLimitKt.rateLimit
+      - org.example.plugins.CSRFKt.csrf
+      # routing
       - org.example.RoutingKt.routing
   deployment:
     port: 8080
+hs_secret: $HS_SECRET
+secure_cookies: $SECURE_COOKIES
+database:
+  url: $DB_URL
+  username: $DB_USERNAME
+  password: $DB_PASSWORD
+  databaseDriver: org.postgresql.Driver
